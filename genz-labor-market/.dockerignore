@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtualenvs
+.venv/
+venv/
+ENV/
+
+# VCS
+.git/
+.gitignore
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Notebooks / reports
+notebooks/
+reports/
+
+# Tests
+tests/
+
+# Large/raw data (keep processed data needed by the app)
+data/raw/
+data/interim/
+
+# Misc
+*.log
+*.tmp

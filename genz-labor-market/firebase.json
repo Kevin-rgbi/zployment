@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "firebase.cloudrun.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "https://genz-dashboard-984875783360.us-central1.run.app",
+        "type": 302
+      },
+      {
+        "source": "**",
+        "destination": "https://genz-dashboard-984875783360.us-central1.run.app/:splat",
+        "type": 302
+      }
+    ]
+  }
+}

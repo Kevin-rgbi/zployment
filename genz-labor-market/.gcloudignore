@@ -1,0 +1,19 @@
+# If .gcloudignore is missing, `gcloud run deploy --source` derives ignore rules from .gitignore.
+# Our .gitignore excludes data/processed/*, but the Streamlit app needs those files at runtime.
+
+# VCS / tooling
+.git/
+.gitignore
+.gcloudignore
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Large/raw data + scratch
+data/raw/
+data/interim/
+
+# Dev-only
+notebooks/
+reports/
+tests/

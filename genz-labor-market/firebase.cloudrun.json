@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "public_cloudrun",
+    "ignore": [
+      "firebase.json",
+      "firebase.cloudrun.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "genz-dashboard",
+          "region": "us-central1"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+.venv/
+.pytest_cache/
+__pycache__/
+
+# Data and generated outputs
+data/raw/*.csv
+data/interim/*
+data/processed/*.csv
+data/processed/*.json
+data/metadata/*.json
+
+reports/figures/*.png

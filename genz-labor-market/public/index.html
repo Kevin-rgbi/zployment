@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loading…</title>
+    <script type="module">
+      // Firebase Web SDK (modular)
+      // Note: Analytics only runs in supported browser contexts (https, non-incognito, etc.)
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD3crfKF5jTXEbKSKm0csiQDFzZFSBtaNA",
+        authDomain: "gen-z-labor-market-dashboard.firebaseapp.com",
+        projectId: "gen-z-labor-market-dashboard",
+        storageBucket: "gen-z-labor-market-dashboard.firebasestorage.app",
+        messagingSenderId: "984875783360",
+        appId: "1:984875783360:web:598fbfca8fbd6c620c0925",
+        measurementId: "G-225ZCWGRNJ",
+      };
+
+      const app = initializeApp(firebaseConfig);
+
+      try {
+        getAnalytics(app);
+      } catch {
+        // Analytics can fail in some environments; ignore to avoid breaking the page.
+      }
+    </script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 2rem;
+        color: #111;
+      }
+      .muted { color: #666; }
+    </style>
+  </head>
+  <body>
+    <h1>Loading…</h1>
+    <p class="muted">
+      This is the static Firebase Hosting placeholder page. If you expected the Streamlit dashboard here,
+      deploy the Cloud Run service (<code>genz-dashboard</code>) and then deploy Hosting with
+      <code>firebase deploy --only hosting --config firebase.cloudrun.json</code>.
+    </p>
+  </body>
+</html>
