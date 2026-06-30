@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#eef7f1">
+  <title>High School Biology Review</title>
+  <meta name="description" content="Five quick high-school biology questions covering cells, DNA, photosynthesis, and mitosis.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="High School Biology Review">
+  <meta property="og:description" content="Try this five-question biology review on cells, DNA, photosynthesis, and mitosis.">
+  <meta property="og:url" content="https://kevin-rgbi.github.io/zployment/biology-review.html">
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/School_Laboratory.jpg/1280px-School_Laboratory.jpg">
+  <meta property="og:image:secure_url" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/School_Laboratory.jpg/1280px-School_Laboratory.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="A high school science laboratory">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="High School Biology Review">
+  <meta name="twitter:description" content="Five quick biology questions for high-school students.">
+  <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/School_Laboratory.jpg/1280px-School_Laboratory.jpg">
+  <style>
+    :root{color-scheme:light;--ink:#17231d;--muted:#637269;--green:#267a50;--soft:#eef7f1;--line:#dbe9df;--white:#fff}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f5fbf7 0%,#edf5f0 100%);color:var(--ink)}
+    body{min-height:100vh;padding:20px}
+    .shell{width:min(680px,100%);margin:0 auto}
+    .top{display:flex;align-items:center;justify-content:space-between;margin:4px 0 16px;color:var(--muted);font-size:14px;font-weight:700}
+    .brand{display:flex;align-items:center;gap:9px;color:var(--green)}
+    .brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#dff1e5;font-size:20px}
+    .progress{height:9px;border-radius:999px;background:#dfe9e2;overflow:hidden;margin-bottom:18px}
+    .progress>div{height:100%;width:20%;border-radius:inherit;background:linear-gradient(90deg,#2c8b5b,#58ad7c);transition:width .3s ease}
+    .card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,5vw,36px);box-shadow:0 24px 70px rgba(32,75,50,.12)}
+    .eyebrow{margin:0 0 10px;color:var(--green);font-size:13px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-size:clamp(28px,7vw,44px);line-height:1.05;letter-spacing:-.04em}
+    .sub{margin:0 0 26px;color:var(--muted);font-size:16px;line-height:1.5}
+    #question{margin:0 0 20px;font-size:clamp(22px,5vw,31px);line-height:1.25;letter-spacing:-.025em}
+    .answers{display:grid;gap:12px}
+    .answer{width:100%;border:1px solid #d9e5dc;border-radius:16px;padding:16px 17px;background:#fff;color:var(--ink);text-align:left;font:inherit;font-weight:720;cursor:pointer;transition:transform .12s ease,border-color .12s ease,background .12s ease}
+    .answer:active{transform:scale(.988)}
+    .answer:hover{border-color:#8ab79a;background:#f5fbf7}
+    .answer.correct{background:#e7f7ed;border-color:#56a875;color:#165f3b}
+    .answer.wrong{background:#fff0f0;border-color:#d78686;color:#8a2a2a}
+    .footer{display:flex;justify-content:space-between;gap:12px;margin-top:20px;color:var(--muted);font-size:13px}
+    .result{display:none;text-align:center}
+    .result h2{font-size:34px;margin:0 0 10px}
+    .result p{color:var(--muted);font-size:17px;line-height:1.5}
+    .secondary{border:0;border-radius:999px;padding:14px 20px;background:var(--green);color:white;font:inherit;font-weight:800;cursor:pointer}
+    .credit{margin:14px 2px 0;color:#7c8b82;font-size:11px;text-align:center}
+    #scare{position:fixed;inset:0;display:none;place-items:center;background:#000;z-index:100;overflow:hidden}
+    #scare img{width:min(145vw,1050px);height:auto;max-width:none;filter:contrast(1.45) saturate(1.25) drop-shadow(0 0 48px rgba(255,0,0,.75));animation:shock .14s cubic-bezier(.02,.9,.1,1) forwards,shake .055s .14s 13 alternate}
+    @keyframes shock{from{transform:scale(.18) rotate(-6deg)}to{transform:scale(1.34) rotate(1deg)}}
+    @keyframes shake{from{translate:-15px 9px;rotate:-1.7deg}to{translate:15px -9px;rotate:1.7deg}}
+    #responsePanel{position:fixed;left:16px;right:16px;bottom:max(18px,env(safe-area-inset-bottom));z-index:110;display:none;max-width:540px;margin:0 auto;padding:18px;border-radius:22px;background:rgba(8,8,10,.92);color:#fff;text-align:center;border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);box-shadow:0 18px 58px rgba(0,0,0,.58)}
+    #responsePanel h2{margin:0 0 14px;font-size:22px}
+    .vote{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .vote button,.feedback-actions button{appearance:none;border:0;border-radius:999px;padding:15px 18px;color:white;font:inherit;font-weight:850;cursor:pointer}
+    #yes{background:#1f9d55}#no{background:#d9363e}
+    #feedbackStep{display:none;text-align:left}
+    #feedbackStep p{margin:0 0 12px;text-align:center;font-weight:800}
+    label{display:block;margin:0 0 8px;font-weight:750}
+    textarea{display:block;width:100%;min-height:104px;resize:vertical;border:1px solid rgba(255,255,255,.28);border-radius:15px;padding:13px;background:rgba(255,255,255,.09);color:#fff;font:inherit;outline:none}
+    textarea::placeholder{color:rgba(255,255,255,.56)}
+    .feedback-actions{display:grid;gap:9px;margin-top:12px}
+    #submitFeedback{background:#4964dc}
+    #skipFeedback{background:transparent;border:1px solid rgba(255,255,255,.3)}
+    .note{margin:9px 0 0!important;color:rgba(255,255,255,.62);font-size:11px;font-weight:500!important;line-height:1.4}
+    @media(max-width:480px){body{padding:14px}.card{border-radius:22px}.footer{font-size:12px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="top">
+      <div class="brand"><span class="brand-mark">🧬</span><span>Biology Review</span></div>
+      <span id="counter">Question 1 of 5</span>
+    </div>
+    <div class="progress"><div id="progressFill"></div></div>
+    <main class="card">
+      <section id="quiz">
+        <p class="eyebrow">High School Biology</p>
+        <h1>Five-question review</h1>
+        <p class="sub">Choose the best answer for each question. Your score appears at the end.</p>
+        <h2 id="question"></h2>
+        <div id="answers" class="answers"></div>
+        <div class="footer"><span>Cells • Genetics • Energy</span><span>No sign-in required</span></div>
+      </section>
+      <section id="result" class="result">
+        <p class="eyebrow">Review complete</p>
+        <h2 id="scoreText"></h2>
+        <p id="scoreNote"></p>
+        <button class="secondary" id="restart">Try again</button>
+      </section>
+    </main>
+    <p class="credit">Preview photo: Farhang Amini / Wikimedia Commons, CC BY-SA 4.0</p>
+  </div>
+
+  <section id="scare" aria-hidden="true">
+    <img src="./assets/focus-scare.svg?v=4" alt="">
+  </section>
+
+  <section id="responsePanel" aria-live="polite">
+    <div id="voteStep">
+      <h2>Did that scare you?</h2>
+      <div class="vote"><button id="yes">Yes</button><button id="no">No</button></div>
+    </div>
+    <form id="feedbackStep">
+      <p id="answerSummary"></p>
+      <label for="feedbackText">Optional feedback</label>
+      <textarea id="feedbackText" maxlength="1200" placeholder="What made it effective or ineffective?"></textarea>
+      <div class="feedback-actions">
+        <button id="submitFeedback" type="submit">Submit feedback</button>
+        <button id="skipFeedback" type="button">Skip</button>
+      </div>
+      <p class="note">Submitting opens a prefilled GitHub issue; GitHub sign-in is required. Skip simply closes this panel.</p>
+    </form>
+  </section>
+
+  <script>
+    const questions=[
+      {q:'Which structure controls what enters and leaves a cell?',a:['Cell membrane','Nucleus','Ribosome','Mitochondrion'],correct:0},
+      {q:'What is the primary function of ribosomes?',a:['Store genetic information','Build proteins from amino acids','Produce ATP through respiration','Break down cellular waste'],correct:1},
+      {q:'Which molecule stores most hereditary information in living organisms?',a:['Glucose','ATP','DNA','Protein'],correct:2},
+      {q:'Which process converts light energy into chemical energy in plants?',a:['Cellular respiration','Diffusion','Photosynthesis','Fermentation'],correct:2},
+      {q:'Which process produces two genetically identical daughter cells?',a:['Meiosis','Mitosis','Fertilization','Transcription'],correct:1}
+    ];
+
+    const questionEl=document.getElementById('question');
+    const answersEl=document.getElementById('answers');
+    const counter=document.getElementById('counter');
+    const progressFill=document.getElementById('progressFill');
+    const quiz=document.getElementById('quiz');
+    const result=document.getElementById('result');
+    const scoreText=document.getElementById('scoreText');
+    const scoreNote=document.getElementById('scoreNote');
+    const scare=document.getElementById('scare');
+    const responsePanel=document.getElementById('responsePanel');
+    const voteStep=document.getElementById('voteStep');
+    const feedbackStep=document.getElementById('feedbackStep');
+    const feedbackText=document.getElementById('feedbackText');
+    const answerSummary=document.getElementById('answerSummary');
+    let current=0,score=0,locked=false,scaredAnswer='';
+    let audioContext;
+
+    function ensureAudio(){
+      if(!audioContext) audioContext=new (window.AudioContext||window.webkitAudioContext)();
+      if(audioContext.state==='suspended') audioContext.resume();
+    }
+
+    function playScareSound(){
+      ensureAudio();
+      const now=audioContext.currentTime;
+      const master=audioContext.createGain();
+      master.gain.setValueAtTime(.0001,now);
+      master.gain.exponentialRampToValueAtTime(.82,now+.012);
+      master.gain.exponentialRampToValueAtTime(.0001,now+1.15);
+      master.connect(audioContext.destination);
+      const osc1=audioContext.createOscillator();
+      const osc2=audioContext.createOscillator();
+      osc1.type='sawtooth';osc2.type='square';
+      osc1.frequency.setValueAtTime(1180,now);osc1.frequency.exponentialRampToValueAtTime(92,now+1.05);
+      osc2.frequency.setValueAtTime(1700,now);osc2.frequency.exponentialRampToValueAtTime(130,now+.92);
+      const g1=audioContext.createGain(),g2=audioContext.createGain();
+      g1.gain.value=.48;g2.gain.value=.22;
+      osc1.connect(g1).connect(master);osc2.connect(g2).connect(master);
+      osc1.start(now);osc1.stop(now+1.1);osc2.start(now);osc2.stop(now+.96);
+      const length=Math.floor(audioContext.sampleRate*1.05);
+      const buffer=audioContext.createBuffer(1,length,audioContext.sampleRate);
+      const data=buffer.getChannelData(0);
+      for(let i=0;i<length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/length,1.45);
+      const noise=audioContext.createBufferSource();
+      const ng=audioContext.createGain();ng.gain.value=.42;
+      noise.buffer=buffer;noise.connect(ng).connect(master);noise.start(now);noise.stop(now+1.05);
+    }
+
+    function render(){
+      locked=false;
+      const item=questions[current];
+      counter.textContent=`Question ${current+1} of 5`;
+      progressFill.style.width=`${(current+1)*20}%`;
+      questionEl.textContent=item.q;
+      answersEl.innerHTML='';
+      item.a.forEach((label,index)=>{
+        const button=document.createElement('button');
+        button.className='answer';
+        button.textContent=label;
+        button.addEventListener('click',()=>select(index,button));
+        answersEl.appendChild(button);
+      });
+    }
+
+    function select(index,button){
+      if(locked)return;
+      locked=true;
+      ensureAudio();
+      const item=questions[current];
+      if(index===item.correct){score++;button.classList.add('correct')}else{button.classList.add('wrong')}
+      [...answersEl.children].forEach((btn,i)=>{btn.disabled=true;if(i===item.correct)btn.classList.add('correct')});
+      if(current===4){
+        setTimeout(triggerScare,420);
+      }else{
+        setTimeout(()=>{current++;render()},620);
+      }
+    }
+
+    function triggerScare(){
+      playScareSound();
+      scare.style.display='grid';
+      scare.setAttribute('aria-hidden','false');
+      if(navigator.vibrate) navigator.vibrate([190,40,260]);
+      setTimeout(()=>{responsePanel.style.display='block'},1750);
+    }
+
+    function finish(){
+      responsePanel.style.display='none';
+      scare.style.display='none';
+      scare.setAttribute('aria-hidden','true');
+      quiz.style.display='none';
+      result.style.display='block';
+      counter.textContent='Complete';
+      progressFill.style.width='100%';
+      scoreText.textContent=`${score} out of 5`;
+      scoreNote.textContent=score>=4?'Strong result. You have a solid grasp of these core biology concepts.':'Review cell structures, genetics, and energy processes, then try again.';
+    }
+
+    function chooseScared(value){
+      scaredAnswer=value;
+      voteStep.style.display='none';
+      feedbackStep.style.display='block';
+      answerSummary.textContent=value==='Yes'?'You said it scared you.':'You said it did not scare you.';
+      feedbackText.focus();
+    }
+
+    function feedbackUrl(){
+      const text=feedbackText.value.trim()||'_No written feedback provided._';
+      const body=['## Scared?',scaredAnswer,'','## Quiz score',`${score}/5`,'','## Written feedback',text,'','## Submitted',new Date().toISOString()].join('\n');
+      return 'https://github.com/Kevin-rgbi/zployment/issues/new?title='+encodeURIComponent('[Feedback] Biology Review')+'&body='+encodeURIComponent(body);
+    }
+
+    document.getElementById('yes').addEventListener('click',()=>chooseScared('Yes'));
+    document.getElementById('no').addEventListener('click',()=>chooseScared('No'));
+    feedbackStep.addEventListener('submit',event=>{event.preventDefault();window.location.href=feedbackUrl()});
+    document.getElementById('skipFeedback').addEventListener('click',()=>{feedbackStep.reset();voteStep.style.display='block';feedbackStep.style.display='none';finish()});
+    document.getElementById('restart').addEventListener('click',()=>{current=0;score=0;scaredAnswer='';result.style.display='none';quiz.style.display='block';voteStep.style.display='block';feedbackStep.style.display='none';render()});
+
+    render();
+  </script>
+</body>
+</html>
