@@ -1,0 +1,60 @@
+name: Append Site Feedback
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: read
+
+concurrency:
+  group: feedback-log
+  cancel-in-progress: false
+
+jobs:
+  append:
+    if: startsWith(github.event.issue.title, '[Feedback]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Append feedback to Markdown
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+          ISSUE_CREATED: ${{ github.event.issue.created_at }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          body = (os.environ.get('ISSUE_BODY') or '').replace('\r\n', '\n').strip()
+          if not body:
+              body = '_No written feedback provided._'
+
+          created = os.environ.get('ISSUE_CREATED', 'Unknown time')
+          user = os.environ.get('ISSUE_USER', 'unknown-user')
+          url = os.environ.get('ISSUE_URL', '')
+
+          entry = (
+              f"## {created} — @{user}\n\n"
+              f"{body}\n\n"
+              f"[Source issue]({url})\n\n"
+              "---\n\n"
+          )
+          with Path('feedback.md').open('a', encoding='utf-8') as file:
+              file.write(entry)
+          PY
+
+      - name: Commit feedback log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add feedback.md
+          git commit -m "Append site feedback from issue #${{ github.event.issue.number }}"
+          git push origin main
