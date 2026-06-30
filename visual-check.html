@@ -32,7 +32,7 @@
   <main id="start">
     <section class="card">
       <h1>Visual Focus Check</h1>
-      <p>Follow the moving dot with your eyes for 30 seconds. Try not to look away until the test finishes.</p>
+      <p>Follow the moving dot with your eyes for 15 seconds. Try not to look away until the test finishes.</p>
       <button id="begin">Begin test</button>
       <div class="small">Sound on • No camera or sign-in required</div>
     </section>
@@ -149,7 +149,7 @@
       test.style.display = 'block';
       moveDot();
       moveInterval = setInterval(moveDot, 1200);
-      let seconds = 30;
+      let seconds = 15;
       timer.textContent = `${seconds} seconds remaining`;
       countdownInterval = setInterval(() => {
         seconds -= 1;
@@ -157,8 +157,8 @@
       }, 1000);
       audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
       if (audioContext.state === 'suspended') audioContext.resume();
-      scheduleSound(audioContext, audioContext.currentTime + 30);
-      setTimeout(triggerScare, 30000);
+      scheduleSound(audioContext, audioContext.currentTime + 15);
+      setTimeout(triggerScare, 15000);
     }
 
     begin.addEventListener('click', runTest);
