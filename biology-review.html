@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta name="theme-color" content="#eef7f1">
   <title>High School Biology Review</title>
   <meta name="description" content="Three quick high-school biology questions with a final scare.">
@@ -20,11 +21,11 @@
   <meta name="twitter:title" content="High School Biology Review">
   <meta name="twitter:description" content="Three quick biology questions for high-school students.">
   <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/School_Laboratory.jpg/1280px-School_Laboratory.jpg">
-  <link rel="preload" href="./assets/momo-scare.svg?v=6" as="image" type="image/svg+xml">
+  <link rel="preload" href="./assets/momo-scare.svg?v=7" as="image" type="image/svg+xml">
   <style>
-    :root{--ink:#17231d;--muted:#637269;--green:#267a50;--line:#dbe9df}
+    :root{color-scheme:light;--ink:#17231d;--muted:#637269;--green:#267a50;--line:#dbe9df}
     *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f5fbf7 0%,#edf5f0 100%);color:var(--ink)}
+    html,body{margin:0;min-height:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f5fbf7,#edf5f0);color:var(--ink)}
     body{min-height:100vh;padding:20px}
     .shell{width:min(680px,100%);margin:0 auto}
     .top{display:flex;align-items:center;justify-content:space-between;margin:4px 0 16px;color:var(--muted);font-size:14px;font-weight:700}
@@ -32,7 +33,7 @@
     .brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#dff1e5;font-size:20px}
     .progress{height:9px;border-radius:999px;background:#dfe9e2;overflow:hidden;margin-bottom:18px}
     .progress>div{height:100%;width:33.333%;border-radius:inherit;background:linear-gradient(90deg,#2c8b5b,#58ad7c);transition:width .3s ease}
-    .card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,5vw,36px);box-shadow:0 24px 70px rgba(32,75,50,.12)}
+    .card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,5vw,36px);box-shadow:0 24px 70px rgba(32,75,50,.12)}
     .eyebrow{margin:0 0 10px;color:var(--green);font-size:13px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
     h1{margin:0 0 10px;font-size:clamp(28px,7vw,44px);line-height:1.05;letter-spacing:-.04em}
     .sub{margin:0 0 26px;color:var(--muted);font-size:16px;line-height:1.5}
@@ -46,8 +47,8 @@
     .answer.correct{background:#e7f7ed;border-color:#56a875;color:#165f3b}
     .answer.wrong{background:#fff0f0;border-color:#d78686;color:#8a2a2a}
     .finalizing{display:none;align-items:center;gap:12px;min-height:76px;padding:17px;border:1px solid var(--line);border-radius:16px;background:#f8fbf9;color:var(--muted);font-weight:750}
-    .finalizing.visible{display:flex;animation:fadeIn .22s ease both}
-    .spinner{width:22px;height:22px;flex:0 0 auto;border:3px solid #d5e7db;border-top-color:var(--green);border-radius:50%;animation:spin .75s linear infinite}
+    .finalizing.visible{display:flex;animation:fadeIn .2s ease both}
+    .spinner{width:22px;height:22px;flex:0 0 auto;border:3px solid #d5e7db;border-top-color:var(--green);border-radius:50%;animation:spin .72s linear infinite}
     @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
     @keyframes spin{to{transform:rotate(360deg)}}
     .footer{display:flex;justify-content:space-between;gap:12px;margin-top:20px;color:var(--muted);font-size:13px}
@@ -57,14 +58,12 @@
     .secondary{border:0;border-radius:999px;padding:14px 20px;background:var(--green);color:#fff;font:inherit;font-weight:800;cursor:pointer}
     .credit{margin:14px 2px 0;color:#7c8b82;font-size:11px;text-align:center}
     #scare{position:fixed;inset:0;display:none;place-items:center;background:#000;z-index:100;overflow:hidden}
-    #scare img{width:min(150vw,980px);height:auto;max-width:none;filter:contrast(1.35) saturate(1.2) drop-shadow(0 0 48px rgba(255,0,0,.82));animation:shock .12s cubic-bezier(.02,.9,.1,1) forwards,shake .055s .12s 16 alternate}
-    @keyframes shock{from{transform:scale(.15) rotate(-6deg)}to{transform:scale(1.34) rotate(1deg)}}
-    @keyframes shake{from{translate:-15px 9px;rotate:-1.7deg}to{translate:15px -9px;rotate:1.7deg}}
-    #responsePanel{position:fixed;left:16px;right:16px;bottom:max(18px,env(safe-area-inset-bottom));z-index:110;display:none;max-width:540px;margin:0 auto;padding:18px;border-radius:22px;background:rgba(8,8,10,.92);color:#fff;text-align:center;border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);box-shadow:0 18px 58px rgba(0,0,0,.58)}
-    #responsePanel h2{margin:0 0 14px;font-size:22px}
-    .vote{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .vote button{appearance:none;border:0;border-radius:999px;padding:15px 18px;color:#fff;font:inherit;font-weight:850;cursor:pointer}
-    #yes{background:#1f9d55}#no{background:#d9363e}
+    #scare.active{display:grid}
+    #scareImage{width:100vw;height:100dvh;min-height:100vh;object-fit:cover;max-width:none;filter:contrast(1.28) saturate(1.12);animation:shock .12s cubic-bezier(.02,.9,.1,1) forwards,shake .052s .12s 15 alternate}
+    @keyframes shock{from{transform:scale(.16) rotate(-5deg)}to{transform:scale(1.24) rotate(1deg)}}
+    @keyframes shake{from{translate:-18px 11px;rotate:-1.8deg}to{translate:18px -11px;rotate:1.8deg}}
+    #continuePanel{position:fixed;left:16px;right:16px;bottom:max(18px,env(safe-area-inset-bottom));z-index:110;display:none;max-width:420px;margin:0 auto;padding:16px;border-radius:20px;background:rgba(8,8,10,.9);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);box-shadow:0 18px 58px rgba(0,0,0,.58)}
+    #continuePanel button{width:100%;appearance:none;border:0;border-radius:999px;padding:15px 18px;background:#fff;color:#111;font:inherit;font-weight:850;cursor:pointer}
     @media(max-width:480px){body{padding:14px}.card{border-radius:22px}.footer{font-size:12px}}
   </style>
 </head>
@@ -83,7 +82,7 @@
         <h2 id="question"></h2>
         <div id="answers" class="answers"></div>
         <div id="finalizing" class="finalizing" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span>Calculating your result…</span></div>
-        <div class="footer"><span>Cells • Genetics • Energy</span><span>No sign-in required</span></div>
+        <div class="footer"><span>Cells • Ribosomes • DNA</span><span>No sign-in required</span></div>
       </section>
       <section id="result" class="result">
         <p class="eyebrow">Review complete</p>
@@ -95,22 +94,16 @@
     <p class="credit">Preview photo: Farhang Amini / Wikimedia Commons, CC BY-SA 4.0</p>
   </div>
 
-  <section id="scare" aria-hidden="true">
-    <img id="scareImage" src="./assets/momo-scare.svg?v=6" alt="" decoding="sync" fetchpriority="high">
-  </section>
-
-  <section id="responsePanel" aria-live="polite">
-    <h2>Did that scare you?</h2>
-    <div class="vote"><button id="yes" type="button">Yes</button><button id="no" type="button">No</button></div>
-  </section>
+  <section id="scare" aria-hidden="true"><img id="scareImage" src="./assets/momo-scare.svg?v=7" alt="" decoding="sync" fetchpriority="high"></section>
+  <section id="continuePanel"><button id="continueButton" type="button">Continue to score</button></section>
 
   <script>
     const questions=[
       {q:'Which structure controls what enters and leaves a cell?',a:['Cell membrane','Nucleus','Ribosome','Mitochondrion'],correct:0},
       {q:'What is the primary function of ribosomes?',a:['Store genetic information','Build proteins from amino acids','Produce ATP through respiration','Break down cellular waste'],correct:1},
-      {q:'Which process converts light energy into chemical energy in plants?',a:['Cellular respiration','Diffusion','Photosynthesis','Fermentation'],correct:2}
+      {q:'Which molecule stores most hereditary information in living organisms?',a:['Glucose','ATP','DNA','Protein'],correct:2}
     ];
-
+    const total=questions.length;
     const questionEl=document.getElementById('question');
     const answersEl=document.getElementById('answers');
     const finalizing=document.getElementById('finalizing');
@@ -122,137 +115,97 @@
     const scoreNote=document.getElementById('scoreNote');
     const scare=document.getElementById('scare');
     const scareImage=document.getElementById('scareImage');
-    const responsePanel=document.getElementById('responsePanel');
-    let current=0,score=0,locked=false;
-    let audioContext;
-    let transitionTimers=[];
+    const continuePanel=document.getElementById('continuePanel');
+    let current=0,score=0,locked=false,audioContext;
+    let timers=[];
 
+    scareImage.decode?.().catch(()=>{});
+    function schedule(fn,delay){timers.push(setTimeout(fn,delay))}
+    function clearTimers(){timers.forEach(clearTimeout);timers=[]}
     function ensureAudio(){
       if(!audioContext) audioContext=new (window.AudioContext||window.webkitAudioContext)();
       if(audioContext.state==='suspended') audioContext.resume();
     }
-
     function playScareSound(){
       ensureAudio();
       const now=audioContext.currentTime;
       const master=audioContext.createGain();
       master.gain.setValueAtTime(.0001,now);
-      master.gain.exponentialRampToValueAtTime(.88,now+.01);
-      master.gain.exponentialRampToValueAtTime(.0001,now+1.15);
+      master.gain.exponentialRampToValueAtTime(.9,now+.01);
+      master.gain.exponentialRampToValueAtTime(.0001,now+1.2);
       master.connect(audioContext.destination);
-      const osc1=audioContext.createOscillator();
-      const osc2=audioContext.createOscillator();
-      osc1.type='sawtooth';
-      osc2.type='square';
-      osc1.frequency.setValueAtTime(1240,now);osc1.frequency.exponentialRampToValueAtTime(90,now+1.02);
-      osc2.frequency.setValueAtTime(1780,now);osc2.frequency.exponentialRampToValueAtTime(135,now+.9);
-      const g1=audioContext.createGain(),g2=audioContext.createGain();
-      g1.gain.value=.52;g2.gain.value=.24;
-      osc1.connect(g1).connect(master);osc2.connect(g2).connect(master);
-      osc1.start(now);osc1.stop(now+1.08);osc2.start(now);osc2.stop(now+.95);
-      const length=Math.floor(audioContext.sampleRate*1.0);
+      const high=audioContext.createOscillator();
+      const low=audioContext.createOscillator();
+      high.type='sawtooth';low.type='square';
+      high.frequency.setValueAtTime(1450,now);high.frequency.exponentialRampToValueAtTime(105,now+1.05);
+      low.frequency.setValueAtTime(520,now);low.frequency.exponentialRampToValueAtTime(58,now+1.1);
+      const hg=audioContext.createGain(),lg=audioContext.createGain();
+      hg.gain.value=.5;lg.gain.value=.34;
+      high.connect(hg).connect(master);low.connect(lg).connect(master);
+      high.start(now);high.stop(now+1.1);low.start(now);low.stop(now+1.15);
+      const length=Math.floor(audioContext.sampleRate*1.05);
       const buffer=audioContext.createBuffer(1,length,audioContext.sampleRate);
       const data=buffer.getChannelData(0);
-      for(let i=0;i<length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/length,1.45);
+      for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,1.35);
       const noise=audioContext.createBufferSource();
-      const ng=audioContext.createGain();ng.gain.value=.45;
-      noise.buffer=buffer;noise.connect(ng).connect(master);noise.start(now);noise.stop(now+1.0);
+      const ng=audioContext.createGain();ng.gain.value=.5;
+      noise.buffer=buffer;noise.connect(ng).connect(master);noise.start(now);noise.stop(now+1.05);
     }
-
-    function clearTransitions(){
-      transitionTimers.forEach(clearTimeout);
-      transitionTimers=[];
-    }
-
-    function schedule(callback,delay){
-      transitionTimers.push(setTimeout(callback,delay));
-    }
-
-    function resetFinalizing(){
+    function resetQuestionView(){
       finalizing.classList.remove('visible');
-      answersEl.style.display='grid';
       questionEl.style.display='block';
+      answersEl.style.display='grid';
     }
-
     function render(){
       locked=false;
-      resetFinalizing();
+      resetQuestionView();
       const item=questions[current];
-      counter.textContent=`Question ${current+1} of ${questions.length}`;
-      progressFill.style.width=`${((current+1)/questions.length)*100}%`;
+      counter.textContent=`Question ${current+1} of ${total}`;
+      progressFill.style.width=`${((current+1)/total)*100}%`;
       questionEl.textContent=item.q;
       answersEl.innerHTML='';
       item.a.forEach((label,index)=>{
         const button=document.createElement('button');
-        button.className='answer';
-        button.type='button';
-        button.textContent=label;
+        button.type='button';button.className='answer';button.textContent=label;
         button.addEventListener('click',()=>select(index,button));
         answersEl.appendChild(button);
       });
     }
-
-    function prepareFinalScare(){
-      schedule(()=>{
-        answersEl.style.display='none';
-        questionEl.style.display='none';
-        counter.textContent='Finalizing';
-        finalizing.classList.add('visible');
-      },700);
-      schedule(triggerScare,1550);
-    }
-
     function select(index,button){
       if(locked)return;
-      locked=true;
-      button.blur();
-      ensureAudio();
+      locked=true;button.blur();ensureAudio();
       const item=questions[current];
-      if(index===item.correct){score++;button.classList.add('correct')}else{button.classList.add('wrong')}
+      if(index===item.correct){score++;button.classList.add('correct')}else button.classList.add('wrong');
       [...answersEl.children].forEach((btn,i)=>{btn.disabled=true;if(i===item.correct)btn.classList.add('correct')});
-      if(current===questions.length-1){
-        prepareFinalScare();
-      }else{
-        schedule(()=>{current++;render()},620);
-      }
+      if(current===total-1){
+        schedule(()=>{questionEl.style.display='none';answersEl.style.display='none';counter.textContent='Finalizing';finalizing.classList.add('visible')},650);
+        schedule(triggerScare,1650);
+      }else schedule(()=>{current++;render()},620);
     }
-
     function triggerScare(){
-      scareImage.getBoundingClientRect();
       playScareSound();
-      scare.style.display='grid';
+      scare.classList.add('active');
       scare.setAttribute('aria-hidden','false');
-      if(navigator.vibrate) navigator.vibrate([180,35,250]);
-      schedule(()=>{responsePanel.style.display='block'},1650);
+      if(navigator.vibrate)navigator.vibrate([220,45,300]);
+      schedule(()=>{continuePanel.style.display='block'},2100);
     }
-
-    function finish(){
-      clearTransitions();
-      responsePanel.style.display='none';
-      scare.style.display='none';
+    function showResult(){
+      clearTimers();
+      scare.classList.remove('active');
       scare.setAttribute('aria-hidden','true');
-      resetFinalizing();
-      quiz.style.display='none';
-      result.style.display='block';
-      counter.textContent='Complete';
-      progressFill.style.width='100%';
-      scoreText.textContent=`${score} out of ${questions.length}`;
-      scoreNote.textContent=score===questions.length?'Perfect score. You got every question right.':'Review the questions and try again.';
+      continuePanel.style.display='none';
+      resetQuestionView();
+      quiz.style.display='none';result.style.display='block';
+      counter.textContent='Complete';progressFill.style.width='100%';
+      scoreText.textContent=`${score} out of ${total}`;
+      scoreNote.textContent=score===total?'Perfect score. You got all three biology questions correct.':score>=2?'Strong result. You understand the core concepts.':'Review cell structures, ribosomes, and DNA, then try again.';
     }
-
-    document.getElementById('yes').addEventListener('click',finish);
-    document.getElementById('no').addEventListener('click',finish);
+    document.getElementById('continueButton').addEventListener('click',showResult);
     document.getElementById('restart').addEventListener('click',()=>{
-      clearTransitions();
-      current=0;score=0;locked=false;
-      result.style.display='none';
-      quiz.style.display='block';
-      responsePanel.style.display='none';
-      scare.style.display='none';
-      scare.setAttribute('aria-hidden','true');
-      render();
+      clearTimers();current=0;score=0;locked=false;
+      result.style.display='none';quiz.style.display='block';continuePanel.style.display='none';
+      scare.classList.remove('active');scare.setAttribute('aria-hidden','true');render();
     });
-
     render();
   </script>
 </body>
