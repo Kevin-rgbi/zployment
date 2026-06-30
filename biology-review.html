@@ -20,6 +20,7 @@
   <meta name="twitter:title" content="High School Biology Review">
   <meta name="twitter:description" content="Five quick biology questions for high-school students.">
   <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/School_Laboratory.jpg/1280px-School_Laboratory.jpg">
+  <link rel="preload" href="./assets/focus-scare.svg?v=5" as="image" type="image/svg+xml">
   <style>
     :root{color-scheme:light;--ink:#17231d;--muted:#637269;--green:#267a50;--soft:#eef7f1;--line:#dbe9df;--white:#fff}
     *{box-sizing:border-box}
@@ -37,11 +38,18 @@
     .sub{margin:0 0 26px;color:var(--muted);font-size:16px;line-height:1.5}
     #question{margin:0 0 20px;font-size:clamp(22px,5vw,31px);line-height:1.25;letter-spacing:-.025em}
     .answers{display:grid;gap:12px}
-    .answer{width:100%;border:1px solid #d9e5dc;border-radius:16px;padding:16px 17px;background:#fff;color:var(--ink);text-align:left;font:inherit;font-weight:720;cursor:pointer;transition:transform .12s ease,border-color .12s ease,background .12s ease}
+    .answer{width:100%;border:1px solid #d9e5dc;border-radius:16px;padding:16px 17px;background:#fff;color:var(--ink);text-align:left;font:inherit;font-weight:720;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .12s ease,border-color .12s ease,background .12s ease}
     .answer:active{transform:scale(.988)}
-    .answer:hover{border-color:#8ab79a;background:#f5fbf7}
+    .answer:focus-visible{outline:3px solid rgba(38,122,80,.28);outline-offset:2px}
+    .answer:disabled{cursor:default;opacity:1}
+    @media(hover:hover) and (pointer:fine){.answer:not(:disabled):hover{border-color:#8ab79a;background:#f5fbf7}}
     .answer.correct{background:#e7f7ed;border-color:#56a875;color:#165f3b}
     .answer.wrong{background:#fff0f0;border-color:#d78686;color:#8a2a2a}
+    .finalizing{display:none;align-items:center;gap:12px;min-height:76px;padding:17px;border:1px solid var(--line);border-radius:16px;background:#f8fbf9;color:var(--muted);font-weight:750}
+    .finalizing.visible{display:flex;animation:fadeIn .22s ease both}
+    .spinner{width:22px;height:22px;flex:0 0 auto;border:3px solid #d5e7db;border-top-color:var(--green);border-radius:50%;animation:spin .75s linear infinite}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
     .footer{display:flex;justify-content:space-between;gap:12px;margin-top:20px;color:var(--muted);font-size:13px}
     .result{display:none;text-align:center}
     .result h2{font-size:34px;margin:0 0 10px}
@@ -83,6 +91,7 @@
         <p class="sub">Choose the best answer for each question. Your score appears at the end.</p>
         <h2 id="question"></h2>
         <div id="answers" class="answers"></div>
+        <div id="finalizing" class="finalizing" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span>Calculating your result…</span></div>
         <div class="footer"><span>Cells • Genetics • Energy</span><span>No sign-in required</span></div>
       </section>
       <section id="result" class="result">
@@ -96,7 +105,7 @@
   </div>
 
   <section id="scare" aria-hidden="true">
-    <img src="./assets/focus-scare.svg?v=4" alt="">
+    <img id="scareImage" src="./assets/focus-scare.svg?v=5" alt="" decoding="sync" fetchpriority="high">
   </section>
 
   <section id="responsePanel" aria-live="polite">
@@ -127,6 +136,7 @@
 
     const questionEl=document.getElementById('question');
     const answersEl=document.getElementById('answers');
+    const finalizing=document.getElementById('finalizing');
     const counter=document.getElementById('counter');
     const progressFill=document.getElementById('progressFill');
     const quiz=document.getElementById('quiz');
@@ -134,6 +144,7 @@
     const scoreText=document.getElementById('scoreText');
     const scoreNote=document.getElementById('scoreNote');
     const scare=document.getElementById('scare');
+    const scareImage=document.getElementById('scareImage');
     const responsePanel=document.getElementById('responsePanel');
     const voteStep=document.getElementById('voteStep');
     const feedbackStep=document.getElementById('feedbackStep');
@@ -141,6 +152,7 @@
     const answerSummary=document.getElementById('answerSummary');
     let current=0,score=0,locked=false,scaredAnswer='';
     let audioContext;
+    let transitionTimers=[];
 
     function ensureAudio(){
       if(!audioContext) audioContext=new (window.AudioContext||window.webkitAudioContext)();
@@ -173,8 +185,24 @@
       noise.buffer=buffer;noise.connect(ng).connect(master);noise.start(now);noise.stop(now+1.05);
     }
 
+    function clearTransitions(){
+      transitionTimers.forEach(clearTimeout);
+      transitionTimers=[];
+    }
+
+    function schedule(callback,delay){
+      transitionTimers.push(setTimeout(callback,delay));
+    }
+
+    function resetFinalizing(){
+      finalizing.classList.remove('visible');
+      answersEl.style.display='grid';
+      questionEl.style.display='block';
+    }
+
     function render(){
       locked=false;
+      resetFinalizing();
       const item=questions[current];
       counter.textContent=`Question ${current+1} of 5`;
       progressFill.style.width=`${(current+1)*20}%`;
@@ -183,38 +211,53 @@
       item.a.forEach((label,index)=>{
         const button=document.createElement('button');
         button.className='answer';
+        button.type='button';
         button.textContent=label;
         button.addEventListener('click',()=>select(index,button));
         answersEl.appendChild(button);
       });
     }
 
+    function prepareFinalScare(){
+      schedule(()=>{
+        answersEl.style.display='none';
+        questionEl.style.display='none';
+        counter.textContent='Finalizing';
+        finalizing.classList.add('visible');
+      },650);
+      schedule(triggerScare,1450);
+    }
+
     function select(index,button){
       if(locked)return;
       locked=true;
+      button.blur();
       ensureAudio();
       const item=questions[current];
       if(index===item.correct){score++;button.classList.add('correct')}else{button.classList.add('wrong')}
       [...answersEl.children].forEach((btn,i)=>{btn.disabled=true;if(i===item.correct)btn.classList.add('correct')});
       if(current===4){
-        setTimeout(triggerScare,420);
+        prepareFinalScare();
       }else{
-        setTimeout(()=>{current++;render()},620);
+        schedule(()=>{current++;render()},620);
       }
     }
 
     function triggerScare(){
+      scareImage.getBoundingClientRect();
       playScareSound();
       scare.style.display='grid';
       scare.setAttribute('aria-hidden','false');
       if(navigator.vibrate) navigator.vibrate([190,40,260]);
-      setTimeout(()=>{responsePanel.style.display='block'},1750);
+      schedule(()=>{responsePanel.style.display='block'},1750);
     }
 
     function finish(){
+      clearTransitions();
       responsePanel.style.display='none';
       scare.style.display='none';
       scare.setAttribute('aria-hidden','true');
+      resetFinalizing();
       quiz.style.display='none';
       result.style.display='block';
       counter.textContent='Complete';
@@ -241,7 +284,7 @@
     document.getElementById('no').addEventListener('click',()=>chooseScared('No'));
     feedbackStep.addEventListener('submit',event=>{event.preventDefault();window.location.href=feedbackUrl()});
     document.getElementById('skipFeedback').addEventListener('click',()=>{feedbackStep.reset();voteStep.style.display='block';feedbackStep.style.display='none';finish()});
-    document.getElementById('restart').addEventListener('click',()=>{current=0;score=0;scaredAnswer='';result.style.display='none';quiz.style.display='block';voteStep.style.display='block';feedbackStep.style.display='none';render()});
+    document.getElementById('restart').addEventListener('click',()=>{clearTransitions();current=0;score=0;locked=false;scaredAnswer='';result.style.display='none';quiz.style.display='block';responsePanel.style.display='none';scare.style.display='none';scare.setAttribute('aria-hidden','true');voteStep.style.display='block';feedbackStep.style.display='none';render()});
 
     render();
   </script>
