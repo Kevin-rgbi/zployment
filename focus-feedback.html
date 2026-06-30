@@ -126,7 +126,10 @@
 
     document.getElementById('skipFeedback').addEventListener('click',()=>{
       feedbackText.value='';
-      window.location.href=issueUrl();
+      feedbackForm.reset();
+      feedbackForm.style.display='none';
+      voteStep.style.display='block';
+      panel.style.display='none';
     });
   </script>
 </body>
